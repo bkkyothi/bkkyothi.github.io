@@ -7,15 +7,15 @@ const Background: React.FC = () => {
             {/* LiquidEther Effect */}
             <div className="absolute inset-0">
                 <LiquidEther
-                    mouseForce={29}
-                    cursorSize={140}
-                    isViscous
+                    mouseForce={20}
+                    cursorSize={100}
+                    isViscous={false}
                     viscous={30}
-                    colors={["#9a9393", "#4a6275", "#79b6d8"]}
+                    colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
                     autoDemo
-                    autoSpeed={1.3}
-                    autoIntensity={1.3}
-                    isBounce={true}
+                    autoSpeed={0.5}
+                    autoIntensity={2.2}
+                    isBounce={false}
                     resolution={0.5}
                 />
             </div>
