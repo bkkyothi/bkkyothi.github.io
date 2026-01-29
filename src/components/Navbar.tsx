@@ -13,7 +13,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-    { name: 'About', href: '#about', icon: UserIcon },
+    // { name: 'About', href: '#about', icon: UserIcon },
     { name: 'Resume', href: '#resume', icon: DocumentTextIcon },
     { name: 'Portfolio', href: '#portfolio', icon: BriefcaseIcon },
     { name: 'Contact', href: '#contact', icon: ChatBubbleBottomCenterTextIcon },
