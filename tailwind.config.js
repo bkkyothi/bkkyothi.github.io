@@ -1,43 +1,48 @@
-const withMT = require("@material-tailwind/react/utils/withMT");
-
-module.exports = withMT({
+/** @type {import('tailwindcss').Config} */
+export default {
+    darkMode: 'class',
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
-    darkMode: 'class',
     theme: {
         extend: {
-            colors: {
-                'blue-fusion': {
-                    50: '#e6f0ff',
-                    100: '#b3d1ff',
-                    200: '#80b3ff',
-                    300: '#4d94ff',
-                    400: '#1a75ff',
-                    500: '#0066CC', // Pantone 18-4218 Blue Fusion
-                    600: '#0052a3',
-                    700: '#003d7a',
-                    800: '#002952',
-                    900: '#001429',
-                },
-                'cloud-cover': {
-                    50: '#fef6f4',
-                    100: '#fde8e3',
-                    200: '#fcd1c7',
-                    300: '#fbb9ab',
-                    400: '#f4a896', // Pantone 16-1523 Cloud Cover
-                    500: '#f28f79',
-                    600: '#ef745d',
-                    700: '#ed5941',
-                    800: '#ea3f25',
-                    900: '#c82f16',
-                },
-            },
             fontFamily: {
-                sans: ['Inter', 'system-ui', 'sans-serif'],
+                sans: ['Outfit', 'sans-serif'],
             },
+            colors: {
+                primary: {
+                    50: '#eef2ff',
+                    100: '#e0e7ff',
+                    200: '#c7d2fe',
+                    300: '#a5b4fc',
+                    400: '#818cf8',
+                    500: '#6366f1',
+                    600: '#4f46e5',
+                    700: '#4338ca',
+                    800: '#3730a3',
+                    900: '#312e81',
+                },
+                // M3 style surfaces
+                surface: {
+                    light: '#ffffff',
+                    dark: '#141414',
+                    variant: {
+                        light: '#f3f4f6',
+                        dark: '#1f1f1f',
+                    }
+                }
+            },
+            borderRadius: {
+                '4xl': '2rem',
+                '5xl': '2.5rem',
+            },
+            boxShadow: {
+                'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                'soft-lg': '0 10px 25px -5px rgba(0, 0, 0, 0.05)',
+                'glow': '0 0 15px rgba(99, 102, 241, 0.5)',
+            }
         },
     },
     plugins: [],
-});
+}

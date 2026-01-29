@@ -3,15 +3,15 @@ import LiquidEther from './LiquidEther';
 
 const Background: React.FC = () => {
     return (
-        <div className="fixed inset-0 -z-10 overflow-hidden">
-            {/* LiquidEther Effect */}
-            <div className="absolute inset-0">
+        <div className="fixed inset-0 -z-10 overflow-hidden bg-gray-50 dark:bg-black transition-colors duration-500">
+            {/* LiquidEther Effect - slightly lower opacity in light mode for better text contrast */}
+            <div className="absolute inset-0 opacity-80 dark:opacity-60">
                 <LiquidEther
                     mouseForce={20}
                     cursorSize={100}
-                    isViscous={false}
+                    isViscous={true}
                     viscous={30}
-                    colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
+                    colors={["#9a9393", "#4a6275", "#79b6d8"]}
                     autoDemo
                     autoSpeed={0.5}
                     autoIntensity={2.2}
@@ -20,8 +20,8 @@ const Background: React.FC = () => {
                 />
             </div>
 
-            {/* Gradient overlay for better text readability */}
-            <div className="absolute inset-0 bg-gradient-to-b from-gray-50/70 via-gray-50/60 to-gray-50/70 dark:from-gray-900/80 dark:via-gray-900/70 dark:to-gray-900/80 pointer-events-none"></div>
+            {/* Glass/Blur overlay to ensure text is readable */}
+            <div className="absolute inset-0 bg-white/30 dark:bg-black/40 backdrop-blur-[2px]"></div>
         </div>
     );
 };

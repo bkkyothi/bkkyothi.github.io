@@ -1,36 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/solid';
-import { useTheme } from '../context/ThemeContext';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ThemeToggle: React.FC = () => {
-    const { theme, toggleTheme } = useTheme();
+    const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+        // Check localStorage first
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+            return savedTheme;
+        }
+        // Fallback to system preference
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark';
+        }
+        return 'light';
+    });
+
+    useEffect(() => {
+        // Apply theme to document
+        const root = window.document.documentElement;
+        if (theme === 'dark') {
+            root.classList.add('dark');
+        } else {
+            root.classList.remove('dark');
+        }
+        // Save to localStorage
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    };
 
     return (
-        <button
+        <motion.button
             onClick={toggleTheme}
-            className="fixed bottom-6 right-6 z-50 p-4 bg-blue-fusion-500 hover:bg-blue-fusion-600 text-white rounded-full shadow-2xl hover:shadow-blue-fusion-500/50 transition-all duration-300 hover:scale-110 group"
-            aria-label="Toggle theme"
+            className="fixed bottom-6 right-6 z-50 p-4 rounded-2xl shadow-lg bg-white dark:bg-gray-800 text-gray-800 dark:text-yellow-400 hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Toggle Theme"
         >
-            <div className="relative w-6 h-6">
-                <SunIcon
-                    className={`absolute inset-0 transition-all duration-300 ${theme === 'light'
-                            ? 'opacity-100 rotate-0'
-                            : 'opacity-0 rotate-90'
-                        }`}
-                />
-                <MoonIcon
-                    className={`absolute inset-0 transition-all duration-300 ${theme === 'dark'
-                            ? 'opacity-100 rotate-0'
-                            : 'opacity-0 -rotate-90'
-                        }`}
-                />
-            </div>
-
-            {/* Tooltip */}
-            <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-            </span>
-        </button>
+            <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                    key={theme}
+                    initial={{ y: -20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 20, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                >
+                    {theme === 'dark' ? (
+                        <MoonIcon className="w-6 h-6" />
+                    ) : (
+                        <SunIcon className="w-6 h-6 text-orange-500" />
+                    )}
+                </motion.div>
+            </AnimatePresence>
+        </motion.button>
     );
 };
 

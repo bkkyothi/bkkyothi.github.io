@@ -3,30 +3,86 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+    body {
+        @apply antialiased scroll-smooth;
+    }
 }
 
-@layer utilities {
-  .glassmorphism {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .shadow-material {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.08);
-  }
-
-  .shadow-material-dark {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.4);
-  }
+/* Custom scrollbar to match the sleek design */
+::-webkit-scrollbar {
+    width: 8px;
 }
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-600;
+}
+
+/* Glassmorphism utility */
+.glass {
+    @apply bg-white/70 dark:bg-black/70 backdrop-blur-lg border border-white/20 dark:border-white/10;
+}
+
+/* --- Circular Wavy Progress Implementation --- */
+progress.circle {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 80px;
+    height: 80px;
+    background: transparent;
+    color: currentColor;
+    border-radius: 50%;
+    position: relative;
+    vertical-align: middle;
+}
+
+/* Clear default styles */
+progress.circle::-webkit-progress-bar {
+    background: transparent;
+}
+
+progress.circle::-webkit-progress-value {
+    background: transparent;
+}
+
+progress.circle::-moz-progress-bar {
+    background: transparent;
+}
+
+progress.circle::-ms-fill {
+    background: transparent;
+}
+
+/* Wavy Style */
+progress.circle.wavy {
+    /* Create a ring with a 'wavy' animation feel using mask and rotation */
+    border: 5px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+
+    /* Optional: Add a subtle glow/shadow to look premium */
+    filter: drop-shadow(0 0 2px currentColor);
+}
+
+/* Wavy Animation Support */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Alternative: Liquid Wavy - if users want the liquid fill effect, it requires container. 
+   Since we must use <progress>, the spinning ring is the most reliable implementation. */
